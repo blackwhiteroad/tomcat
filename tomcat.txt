@@ -1,0 +1,18 @@
+部署tomcat服务
+1.tomcat环境准备
+[root@user1 ~]# cat /etc/redhat-release 
+CentOS Linux release 7.4.1708 (Core)
+2.创建tomcat用户
+[root@user1 ~]# useradd tomcat
+[root@user1 ~]# id tomcat
+uid=1005(tomcat) gid=1005(tomcat) 组=1005(tomcat)
+3.安装java-1.8.0-openjdk
+[root@user1 ~]# yi java-1.8.0-openjdk
+[root@user1 ~]# java -version #查看版本
+openjdk version "1.8.0_131"
+OpenJDK Runtime Environment (build 1.8.0_131-b12)
+OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)
+4.安装tomcat(wget方式网上获取资源)
+[root@user1 ~]# cd /usr/local/src/
+wget http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.14/bin/apache-tomcat-8.5.14.tar.gz
+
