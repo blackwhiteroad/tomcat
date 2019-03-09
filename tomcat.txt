@@ -15,4 +15,81 @@ OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)
 4.安装tomcat(wget方式网上获取资源)
 [root@user1 ~]# cd /usr/local/src/
 wget http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.14/bin/apache-tomcat-8.5.14.tar.gz
+[root@user1 src]# tar zxf apache-tomcat-8.5.14.tar.gz
+[root@user1 src]# mv apache-tomcat-8.5.14 /usr/local/
+[root@user1 src]# ln -s /usr/local/apache-tomcat-8.5.14/ /usr/local/tomcat
+5.使用tomcat用户启动tomcat(这样可以起到一定的安全防范作用，如果被入侵拿到的也只是tomcat权限)
+[root@user1 src]# chown -R tomcat.tomcat /usr/local/tomcat/
+6.自启动tomcat服务
+1>创建tomcat脚本
+[root@user1 ~]# cd /etc/init.d/
+[root@user1 init.d]# vim tomcat
+#!/bin/bash
+# description: Tomcat8.5.14 Start Stop Restart
+# processname: Tomcat8.5.14
+# chkconfig: 234 20 80
+
+CATALINA_HOME=/usr/local/tomcat
+
+case $1 in
+        start)
+                sh $CATALINA_HOME/bin/startup.sh
+                ;;
+        stop)
+                sh $CATALINA_HOME/bin/shutdown.sh
+                ;;
+        restart)
+                sh $CATALINA_HOME/bin/shutdown.sh
+                sh $CATALINA_HOME/bin/startup.sh
+                ;;
+        *)
+                echo 'please use : tomcat {start | stop | restart}'
+        ;;
+esac
+exit 0
+2>授予执行权限
+[root@user1 init.d]# chmod 755 tomcat
+3>增加系统服务
+[root@user1 init.d]# chkconfig --add tomcat
+7.在tomcat/bin/catalina.sh文件中加入以下语句
+[root@user1 ~]# vim /usr/local/tomcat/bin/catalina.sh
+#JAVA_HOME的路径可用fn jre查询，指向java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64路径
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+export CATALINA_HOME=/usr/bin/tomcat
+export CATALINA_BASE=/usr/bin/tomcat
+export CATALINA_TMPDIR=/usr/bin/tomcat/temp
+8.启动/查看/停止/重启tomcat服务
+[root@user1 ~]# sstst tomcat
+[root@user1 ~]# sststus tomcat
+[root@user1 ~]# sststop tomcat
+[root@user1 ~]# sstrest tomcat
+9.查看8080端口
+[root@user1 ~]# sae 8080
+10.访问首页
+[root@user1 ~]# curl 192.168.5.8:8080
+
+注释:tomcat配置文件
+1.[root@user1 ~]# vim /usr/local/tomcat/conf/server.xml 
+    <Connector port="8080" protocol="HTTP/1.1"  #http监听8080端口
+               connectionTimeout="20000"
+               redirectPort="8443" /> #https 8443端口
+    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />  #AJP通信方式8009端口
+<Server port="8005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />  #telent端口
+2.war包布置下把访问网页根路径下的所有文件删除
+[root@user1 ~]# cd /usr/local/tomcat/webapps/
+[root@user1 webapps]# pwd
+/usr/local/tomcat/webapps   #默认访问网页根路径 
+[root@user1 webapps]# ll
+总用量 4
+drwxr-x--- 14 tomcat tomcat 4096 3月  10 00:50 docs       
+drwxr-x---  6 tomcat tomcat   83 3月  10 00:50 examples
+drwxr-x---  5 tomcat tomcat   87 3月  10 00:50 host-manager  $#用户管理，登陆使用
+drwxr-x---  5 tomcat tomcat  103 3月  10 00:50 manager
+drwxr-x---  3 tomcat tomcat  306 3月  10 00:50 ROOT          #默认访问路径
+
+
+
+
+
 
