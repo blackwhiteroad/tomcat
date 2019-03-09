@@ -20,6 +20,10 @@ wget http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.14/bin/apache-tomcat-8.
 [root@user1 src]# ln -s /usr/local/apache-tomcat-8.5.14/ /usr/local/tomcat
 5.使用tomcat用户启动tomcat(这样可以起到一定的安全防范作用，如果被入侵拿到的也只是tomcat权限)
 [root@user1 src]# chown -R tomcat.tomcat /usr/local/tomcat/
+#尽量以tomcat用户启动tomcat服务
+eg:切换到tomcat用户，启动tomcat服务:
+[tomcat@user1 ~]$	#如下相关操作与root操作tomcat同
+[root@user1 ~]# su - tomcat
 6.自启动tomcat服务
 1>创建tomcat脚本
 [root@user1 ~]# cd /etc/init.d/
@@ -97,6 +101,17 @@ drwxr-x---  3 tomcat tomcat  306 3月  10 00:50 ROOT          #默认访问路�
 https://blog.51cto.com/chinawu/1949786?source=dra
 https://blog.51cto.com/zhongliang/2339295
 https://www.cnblogs.com/linuxk/p/9271959.html
+重点:Tomcat中Connector常用配置(备忘)
+https://shift-alt-ctrl.iteye.com/blog/1966744
+重点:全套配置
+https://blog.csdn.net/xujiamin0022016/article/details/81880651
+
+#tomcat部署配置
+https://www.cnblogs.com/reblue520/p/6842377.html
+#使用Nginx和Tomcat搭建Web集群环境
+https://www.linuxidc.com/Linux/2018-01/150306.htm?utm_source=tuicool
+#Tomcat结合Apache、Nginx实现高性能的web服务器
+https://blog.51cto.com/xslwahaha/1741259
 
 1.修改conf/web.xml，重定向403、404以及500等错误到指定的错误页面；
 https://blog.csdn.net/yxhxj2006/article/details/77895508
@@ -105,4 +120,21 @@ https://www.cnblogs.com/lazyfennec/p/7675571.html
 https://www.linuxidc.com/Linux/2018-09/154339.htm                       #nginx
 https://jingyan.baidu.com/article/0eb457e52ee5ad03f1a905a3.html         #nat123
 https://blog.csdn.net/a249130/article/details/81476454                  #apache
+3.高性能web架构之tomcat介绍与使用(附带tomcat部署配置)
+https://blog.csdn.net/weixin_41515615/article/details/81953634
+4.Tomcat整体架构分析
+https://blog.csdn.net/qq_42914528/article/details/81583312
+5.nginx 与 tomcat 组合搭建web服务
+https://www.cnblogs.com/mustone/p/7521567.html
+6.Linux下安装Tomcat服务器和部署Web应用
+https://www.cnblogs.com/xdp-gacl/p/4097608.html
+7.linux运维、架构之路-tomcat服务
+https://www.cnblogs.com/yanxinjiang/p/7866716.html
+8.Linux(Centos)之安装tomcat并且部署Java Web项目
+https://www.cnblogs.com/hanyinglong/p/5024643.html
+
+
+
+
+
 
