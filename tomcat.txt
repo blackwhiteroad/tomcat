@@ -89,7 +89,12 @@ drwxr-x---  5 tomcat tomcat  103 3月  10 00:50 manager
 drwxr-x---  3 tomcat tomcat  306 3月  10 00:50 ROOT          #默认访问路径
 
 
-
-
-
+补充:
+1.修改conf/web.xml，重定向403、404以及500等错误到指定的错误页面；
+https://blog.csdn.net/yxhxj2006/article/details/77895508
+https://www.cnblogs.com/lazyfennec/p/7675571.html
+2.如需直接对外使用80端口，可通过普通账号启动后，配置iptables规则进行转发；
+https://www.linuxidc.com/Linux/2018-09/154339.htm                       #nginx
+https://jingyan.baidu.com/article/0eb457e52ee5ad03f1a905a3.html         #nat123
+https://blog.csdn.net/a249130/article/details/81476454                  #apache
 
